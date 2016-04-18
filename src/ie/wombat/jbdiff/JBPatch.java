@@ -70,17 +70,21 @@ public class JBPatch {
 		int oldpos, newpos;
 
 		DataInputStream diffIn = new DataInputStream (new FileInputStream(diffFile));
+
+
+		// Diff file header. Comprises 4 x 64 bit fields:
+		// 0               8              16              24              32 (byte offset)
+		// +---------------+---------------+---------------+---------------+
+		// | headerMagic   | ctrlBlockLen  | diffBlockLen  | newsize       |
+		// +---------------+---------------+---------------+---------------+
+		// headerMagic: Always "jbdiff40" (8 bytes)
+		// ctrlBlockLen: Length of gzip compressed ctrlBlock (64 bit long)
+		// diffBlockLen: length of gzip compressed diffBlock (64 bit long)
+		// newsize: size of new file in bytes (64 bit long)
 		
-		// headerMagic at header offset 0 (length 8 bytes)
 		long headerMagic = diffIn.readLong();
-		
-		// ctrlBlockLen after gzip compression at heater offset 8 (length 8 bytes)
 		long ctrlBlockLen = diffIn.readLong();
-		
-		// diffBlockLen after gzip compression at header offset 16 (length 8 bytes)
 		long diffBlockLen = diffIn.readLong();
-		
-		// size of new file at header offset 24 (length 8 bytes)
 		int newsize = (int)diffIn.readLong();
 		
 		/*
