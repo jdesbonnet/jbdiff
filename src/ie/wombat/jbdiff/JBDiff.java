@@ -41,7 +41,7 @@ import java.util.zip.GZIPOutputStream;
  * (see http://www.daemonology.net/bsdiff/ ) and distributed under BSD license.
  * 
  * <p>
- * Running this on large files will probably require an increae of the default
+ * Running this on large files may require an increase of the default
  * maximum heap size (use java -Xmx200m)
  * </p> 
  *
@@ -156,9 +156,8 @@ public class JBDiff {
 	}
 
 	/**
-	 * Fast suffix sporting.
-	 * Larsson and Sadakane's qsufsort algorithm.
-	 * See http://www.cs.lth.se/Research/Algorithms/Papers/jesper5.ps
+	 * Fast suffix sorting (qsufsort). See paper "Faster Suffix Sorting" by N. Jesper Larsson, Kunihiko Sadakane.
+	 * http://www.larsson.dogma.net/research.html
 	 * 
 	 * @param I
 	 * @param V
